@@ -1,0 +1,13 @@
+처음 보는 분은 이 파일부터 읽으세요.
+
+1. BEGINNER_GUIDE.md 파일을 엽니다.
+2. 1단계부터 순서대로 진행합니다.
+3. 코드는 main.py만 있고, 보통 수정하지 않아도 됩니다.
+4. 검색 조건은 config.json만 수정하면 됩니다.
+5. 비밀번호나 API 키는 코드에 적지 말고 GitHub Secrets에 등록하세요.
+
+가장 먼저 필요한 것:
+- SerpAPI API Key
+- Gmail 주소
+- Gmail 앱 비밀번호
+- GitHub 계정

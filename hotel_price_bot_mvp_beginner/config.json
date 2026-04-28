@@ -1,0 +1,10 @@
+{
+  "location": "Busan Haeundae",
+  "adults": 2,
+  "currency": "KRW",
+  "days_after": 14,
+  "nights": 1,
+  "top_n": 5,
+  "min_rating": 0,
+  "send_only_when_price_drops": false
+}
