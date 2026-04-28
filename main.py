@@ -313,10 +313,12 @@ def build_email_html(
     """
 
 
-def send_email(subject: str, html: str) -> None:
+def send_email(subject: str, html: str, to_email: str) -> None:
     gmail_user = os.environ["GMAIL_USER"]
     gmail_app_password = os.environ["GMAIL_APP_PASSWORD"]
-    to_email = os.environ["TO_EMAIL"]
+
+    if not to_email:
+        raise ValueError("이메일 수신자가 비어 있습니다. 관리자 화면 또는 config.json의 to_email 값을 입력하세요.")
 
     msg = MIMEText(html, "html", "utf-8")
     msg["Subject"] = subject
@@ -332,6 +334,7 @@ def main() -> None:
     config = load_config()
 
     location = config["location"]
+    to_email = str(config.get("to_email") or os.environ.get("TO_EMAIL", "")).strip()
     adults = int(config.get("adults", 2))
     children = int(config.get("children", 0))
     children_ages = str(config.get("children_ages", "7"))
@@ -369,6 +372,7 @@ def main() -> None:
         send_email(
             subject=f"[호텔 알림] {location} 검색 결과 없음",
             html=f"<p>{location} / {check_in_date} ~ {check_out_date} 조건에서 가격 정보를 찾지 못했습니다.</p>",
+            to_email=to_email,
         )
         return
 
@@ -403,7 +407,7 @@ def main() -> None:
     )
 
     subject = f"[호텔 최저가] {location} {check_in_date} TOP {len(cheapest_hotels)}"
-    send_email(subject, html)
+    send_email(subject, html, to_email=to_email)
     print("이메일 발송 완료")
 
 
