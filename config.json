@@ -1,9 +1,11 @@
 {
-  "location": "Busan Haeundae",
+  "location": "Kumamoto",
+  "check_in_date": "2026-06-08",
+  "check_out_date": "2026-06-12",
   "adults": 2,
+  "children": 1,
+  "children_ages": "7",
   "currency": "KRW",
-  "days_after": 14,
-  "nights": 1,
   "top_n": 5,
   "min_rating": 0,
   "send_only_when_price_drops": false
