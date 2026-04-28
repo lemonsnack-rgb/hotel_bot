@@ -22,7 +22,16 @@ def load_config() -> Dict[str, Any]:
         return json.load(f)
 
 
-def get_trip_dates(days_after: int, nights: int) -> tuple[str, str]:
+def get_trip_dates(config: Dict[str, Any]) -> tuple[str, str]:
+    """
+    config.json에 check_in_date / check_out_date가 있으면 그 날짜를 우선 사용합니다.
+    없으면 기존 방식대로 days_after / nights를 사용합니다.
+    """
+    if config.get("check_in_date") and config.get("check_out_date"):
+        return str(config["check_in_date"]), str(config["check_out_date"])
+
+    days_after = int(config.get("days_after", 14))
+    nights = int(config.get("nights", 1))
     check_in = date.today() + timedelta(days=days_after)
     check_out = check_in + timedelta(days=nights)
     return check_in.isoformat(), check_out.isoformat()
@@ -66,6 +75,8 @@ def search_hotels_with_serpapi(
     check_in_date: str,
     check_out_date: str,
     adults: int,
+    children: int,
+    children_ages: str,
     currency: str,
 ) -> List[Dict[str, Any]]:
     api_key = os.environ["SERPAPI_API_KEY"]
@@ -76,11 +87,15 @@ def search_hotels_with_serpapi(
         "check_in_date": check_in_date,
         "check_out_date": check_out_date,
         "adults": adults,
+        "children": children,
         "currency": currency,
         "gl": "kr",
         "hl": "ko",
         "api_key": api_key,
     }
+
+    if children > 0:
+        params["children_ages"] = children_ages
 
     response = requests.get(
         "https://serpapi.com/search.json",
@@ -228,6 +243,9 @@ def build_email_html(
     location: str,
     check_in_date: str,
     check_out_date: str,
+    adults: int,
+    children: int,
+    children_ages: str,
     hotels: List[Dict[str, Any]],
     previous_lowest: Optional[int],
 ) -> str:
@@ -256,12 +274,17 @@ def build_email_html(
     if previous_lowest is not None:
         previous_text = f"이전 최저가: {money(previous_lowest)}"
 
+    guest_text = f"성인 {adults}명"
+    if children > 0:
+        guest_text += f", 어린이 {children}명(나이: {children_ages})"
+
     return f"""
     <html>
       <body>
         <h2>호텔 최저가 알림</h2>
         <p><b>지역:</b> {location}</p>
         <p><b>숙박일:</b> {check_in_date} ~ {check_out_date}</p>
+        <p><b>숙박객:</b> {guest_text}</p>
         <p><b>현재 최저가:</b> {money(current_lowest)}</p>
         <p><b>{previous_text}</b></p>
 
@@ -310,14 +333,14 @@ def main() -> None:
 
     location = config["location"]
     adults = int(config.get("adults", 2))
+    children = int(config.get("children", 0))
+    children_ages = str(config.get("children_ages", "7"))
     currency = config.get("currency", "KRW")
-    days_after = int(config.get("days_after", 14))
-    nights = int(config.get("nights", 1))
     top_n = int(config.get("top_n", 5))
     min_rating = float(config.get("min_rating", 0))
     send_only_when_price_drops = bool(config.get("send_only_when_price_drops", False))
 
-    check_in_date, check_out_date = get_trip_dates(days_after, nights)
+    check_in_date, check_out_date = get_trip_dates(config)
 
     previous_lowest = get_previous_lowest_price(
         location,
@@ -330,6 +353,8 @@ def main() -> None:
         check_in_date=check_in_date,
         check_out_date=check_out_date,
         adults=adults,
+        children=children,
+        children_ages=children_ages,
         currency=currency,
     )
 
@@ -370,6 +395,9 @@ def main() -> None:
         location=location,
         check_in_date=check_in_date,
         check_out_date=check_out_date,
+        adults=adults,
+        children=children,
+        children_ages=children_ages,
         hotels=cheapest_hotels,
         previous_lowest=previous_lowest,
     )
