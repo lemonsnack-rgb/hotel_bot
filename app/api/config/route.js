@@ -1,3 +1,5 @@
+export const runtime = 'nodejs';
+
 const OWNER = process.env.GITHUB_OWNER || 'lemonsnack-rgb';
 const REPO = process.env.GITHUB_REPO || 'hotel_bot';
 const BRANCH = process.env.GITHUB_BRANCH || 'main';
