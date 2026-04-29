@@ -15,7 +15,7 @@ body {
 }
 
 main {
-  width: min(920px, calc(100% - 32px));
+  width: min(980px, calc(100% - 32px));
   margin: 0 auto;
   padding: 40px 0;
 }
@@ -26,11 +26,17 @@ main {
   border-radius: 18px;
   box-shadow: 0 12px 30px rgba(20, 32, 54, 0.08);
   padding: 28px;
+  margin-bottom: 22px;
 }
 
 h1 {
   margin: 0 0 8px;
   font-size: 28px;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: 22px;
 }
 
 .description {
@@ -74,11 +80,16 @@ input:focus, select:focus {
   border-color: #7aa7ff;
 }
 
-.actions {
+.actions, .item-actions {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
   margin-top: 24px;
+}
+
+.item-actions {
+  margin-top: 0;
+  align-items: center;
 }
 
 button {
@@ -127,6 +138,28 @@ button:disabled {
   line-height: 1.6;
 }
 
+.alert-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.alert-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 18px;
+  border: 1px solid #e5e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  background: #fbfcff;
+}
+
+.alert-item p {
+  margin: 6px 0 0;
+  color: #5c667a;
+  line-height: 1.4;
+}
+
 @media (max-width: 720px) {
   .grid {
     grid-template-columns: 1fr;
@@ -139,5 +172,9 @@ button:disabled {
 
   .card {
     padding: 20px;
+  }
+
+  .alert-item {
+    flex-direction: column;
   }
 }
