@@ -1,13 +1,19 @@
 {
-  "to_email": "lemonsnack@gmail.com",
-  "location": "Kumamoto",
-  "check_in_date": "2026-06-08",
-  "check_out_date": "2026-06-12",
-  "adults": 2,
-  "children": 1,
-  "children_ages": "12",
-  "currency": "KRW",
-  "top_n": 5,
-  "min_rating": 0,
-  "send_only_when_price_drops": false
+  "users": [
+    {
+      "id": "u_lemonsnack_001",
+      "to_email": "lemonsnack@gmail.com",
+      "location": "Kumamoto",
+      "check_in_date": "2026-06-08",
+      "check_out_date": "2026-06-12",
+      "adults": 2,
+      "children": 1,
+      "children_ages": "12",
+      "currency": "KRW",
+      "top_n": 5,
+      "min_rating": 0,
+      "send_only_when_price_drops": false,
+      "created_at": "2026-04-29T00:00:00.000Z"
+    }
+  ]
 }
