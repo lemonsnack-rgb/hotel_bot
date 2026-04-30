@@ -31,7 +31,7 @@ export async function POST(request) {
 
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
-    return jsonResponse({ error: 'Vercel 환경변수 GITHUB_TOKEN이 설정되지 않았습니다.' }, 500);
+    return jsonResponse({ error: 'Vercel 환경 변수 GITHUB_TOKEN이 설정되지 않았습니다.' }, 500);
   }
 
   const url = `https://api.github.com/repos/${OWNER}/${REPO}/actions/workflows/${WORKFLOW_FILE}/dispatches`;

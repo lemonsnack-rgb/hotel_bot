@@ -1,8 +1,8 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'Hotel Bot Admin',
-  description: 'Hotel price alert bot admin page',
+  title: '호텔 가격 알림',
+  description: '공유 링크로 등록하는 호텔 가격 알림',
 };
 
 export default function RootLayout({ children }) {

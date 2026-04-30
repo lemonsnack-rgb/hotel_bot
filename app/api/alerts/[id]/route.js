@@ -28,7 +28,7 @@ export async function PATCH(request, context) {
     const { data, error } = await db
       .from('hotel_alerts')
       .update({
-        is_active: body.is_active,
+        is_active: Boolean(body.is_active),
         updated_at: new Date().toISOString(),
       })
       .eq('id', params.id)

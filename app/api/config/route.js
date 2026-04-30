@@ -22,7 +22,7 @@ function checkAdminPassword(request, bodyPassword) {
 function requireGitHubToken() {
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
-    throw new Error('Vercel 환경변수 GITHUB_TOKEN이 설정되지 않았습니다.');
+    throw new Error('Vercel 환경 변수 GITHUB_TOKEN이 설정되지 않았습니다.');
   }
   return token;
 }
@@ -76,7 +76,7 @@ export async function POST(request) {
   try {
     body = await request.json();
   } catch {
-    return jsonResponse({ error: '요청 본문을 읽지 못했습니다.' }, 400);
+    return jsonResponse({ error: '요청 내용을 읽지 못했습니다.' }, 400);
   }
 
   if (!checkAdminPassword(request, body.adminPassword)) {

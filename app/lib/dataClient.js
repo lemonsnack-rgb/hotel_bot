@@ -13,7 +13,7 @@ export function getDataClient() {
   const url = cleanSupabaseUrl(rawUrl);
 
   if (!url || !key) {
-    throw new Error('Supabase 연결값이 없습니다. Vercel Environment Variables에 DATA_URL과 DATA_KEY를 등록한 뒤 Redeploy 하세요.');
+    throw new Error('Supabase 연결 값이 없습니다. Vercel Environment Variables에 DATA_URL과 DATA_KEY를 등록한 뒤 Redeploy해 주세요.');
   }
 
   if (!url.startsWith('https://') || !url.includes('supabase.co')) {

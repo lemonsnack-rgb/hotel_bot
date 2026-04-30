@@ -31,3 +31,5 @@ jobs:
           GMAIL_USER: ${{ secrets.GMAIL_USER }}
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
           TO_EMAIL: ${{ secrets.TO_EMAIL }}
+          DATA_URL: ${{ secrets.DATA_URL }}
+          DATA_KEY: ${{ secrets.DATA_KEY }}
